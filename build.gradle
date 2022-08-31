@@ -1,0 +1,46 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "net.serenity-bdd:serenity-gradle-plugin:3.2.5"
+    }
+}
+
+plugins {
+    id 'java'
+    id 'idea'
+    id "net.serenity-bdd.serenity-gradle-plugin" version '3.2.5'
+}
+
+ext {
+    serenityVersion = '3.2.5'
+    slf4jVersion = '1.7.36'
+    junitVersion = '5.8.2'
+}
+
+group 'co.com.sofka.certification'
+version '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: junitVersion
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: junitVersion
+
+    implementation group: 'net.serenity-bdd', name: 'serenity-core', version: serenityVersion
+    implementation group: 'net.serenity-bdd', name: 'serenity-junit', version: serenityVersion
+    implementation group: 'net.serenity-bdd', name: 'serenity-screenplay', version: serenityVersion
+    implementation group: 'net.serenity-bdd', name: 'serenity-cucumber', version: serenityVersion
+    implementation group: 'net.serenity-bdd', name: 'serenity-ensure', version: serenityVersion
+
+    testImplementation group: 'org.slf4j', name: 'slf4j-simple', version: slf4jVersion
+}
+
+compileJava.options.encoding = "UTF-8"
+compileTestJava.options.encoding = "UTF-8"
+
+
+test.finalizedBy(aggregate)
