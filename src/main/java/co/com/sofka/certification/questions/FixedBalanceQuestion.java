@@ -5,7 +5,7 @@ import static co.com.sofka.certification.userinterfaces.DashboardUI.VW_BALANCE;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Question;
 
-public class FixedBalance implements Question<String> {
+public class FixedBalanceQuestion implements Question<String> {
 
     @Override
     public String answeredBy(Actor actor) {
@@ -13,8 +13,8 @@ public class FixedBalance implements Question<String> {
         return balance[3];
     }
 
-    public static FixedBalance fixedStringBalance()
+    public static FixedBalanceQuestion fixedStringBalance()
     {
-        return new FixedBalance();
+        return new FixedBalanceQuestion();
     }
 }

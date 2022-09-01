@@ -1,7 +1,7 @@
 package co.com.sofka.certification.stepDefinitions;
 
 import static co.com.sofka.certification.questions.BancaryBalanceQuestion.calculatedBalance;
-import static co.com.sofka.certification.questions.FixedBalance.fixedStringBalance;
+import static co.com.sofka.certification.questions.FixedBalanceQuestion.fixedStringBalance;
 import static co.com.sofka.certification.tasks.IgnoreWarningTask.ignoreWarning;
 import static co.com.sofka.certification.tasks.LoginTask.doLogin;
 import static co.com.sofka.certification.tasks.PaymentTask.makeAPayment;
