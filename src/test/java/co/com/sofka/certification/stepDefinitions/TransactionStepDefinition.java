@@ -14,6 +14,7 @@ import net.serenitybdd.screenplay.ensure.Ensure;
 import java.util.List;
 import java.util.Map;
 
+import co.com.sofka.certification.models.Countries;
 import io.cucumber.java.Before;
 import io.cucumber.java.ParameterType;
 import io.cucumber.java.en.Given;
@@ -59,6 +60,4 @@ public class TransactionStepDefinition {
 
         );
     }
-
-
 }
