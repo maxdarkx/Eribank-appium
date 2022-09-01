@@ -1,16 +1,22 @@
 package co.com.sofka.certification.stepDefinitions;
 
+import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.isVisible;
 import static co.com.sofka.certification.questions.BancaryBalanceQuestion.calculatedBalance;
 import static co.com.sofka.certification.questions.FixedBalanceQuestion.fixedStringBalance;
 import static co.com.sofka.certification.tasks.IgnoreWarningTask.ignoreWarning;
 import static co.com.sofka.certification.tasks.LoginTask.doLogin;
 import static co.com.sofka.certification.tasks.PaymentTask.makeAPayment;
+import static co.com.sofka.certification.userinterfaces.DashboardUI.BT_MAKE_PAYMENT;
+import static co.com.sofka.certification.userinterfaces.DashboardUI.VW_BALANCE;
 
 import net.serenitybdd.screenplay.Actor;
+import net.serenitybdd.screenplay.actions.Click;
 import net.serenitybdd.screenplay.actors.OnStage;
 import net.serenitybdd.screenplay.actors.OnlineCast;
 import net.serenitybdd.screenplay.ensure.Ensure;
+import net.serenitybdd.screenplay.waits.WaitUntil;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 
@@ -47,6 +53,7 @@ public class TransactionStepDefinition {
     public void heMakesATransactionUsingData(Actor actor, List<Map<String, String>> userTable) {
         Map<String, String> transactionData = userTable.get(0);
         actor.attemptsTo(
+                WaitUntil.the(VW_BALANCE, isVisible()).forNoMoreThan(Duration.ofSeconds(10)),
                 makeAPayment().withTransactionData(transactionData)
         );
 

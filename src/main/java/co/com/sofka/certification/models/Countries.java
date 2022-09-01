@@ -19,7 +19,7 @@ public enum Countries {
     JAPAN("Japan"),
     FRANCE("France"),
     RUSSIA("Russia"),
-    AUSTRALIA("Australia"),
+    AUSTRALLIA("Australlia"),
     CANADA("Canada");
 
     private final String countryName;

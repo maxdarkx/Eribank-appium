@@ -1,6 +1,8 @@
 package co.com.sofka.certification.tasks;
 
+import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.isVisible;
 import static co.com.sofka.certification.questions.CountryQuestion.theCountryIsOnTheList;
+import static co.com.sofka.certification.tasks.SwipeToXpath.swipeToXpath;
 import static co.com.sofka.certification.userinterfaces.DashboardUI.BT_MAKE_PAYMENT;
 import static co.com.sofka.certification.userinterfaces.DashboardUI.VW_BALANCE;
 import static co.com.sofka.certification.userinterfaces.PaymentUI.BT_CONFIRM_PAYMENT;
@@ -15,17 +17,14 @@ import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.actions.Click;
 import net.serenitybdd.screenplay.actions.Enter;
-import net.serenitybdd.screenplay.actions.EnterValue;
-import net.serenitybdd.screenplay.actions.SendKeys;
-import net.serenitybdd.screenplay.actions.MoveMouse;
-import net.serenitybdd.screenplay.actions.Scroll;
-import net.serenitybdd.screenplay.actions.type.Type;
 import net.serenitybdd.screenplay.conditions.Check;
 import net.serenitybdd.screenplay.ui.PageElement;
+import net.serenitybdd.screenplay.waits.WaitUntil;
+
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -43,8 +42,7 @@ public class PaymentTask implements Task {
         FixCountryFormat fix = new FixCountryFormat(transactionData.get("country"));
         String country = fix.fixFormat();
         String countryXpath = "//*[contains(@text,'" + country + "')]";
-        String middleCountryXpath = "//*[contains(@text,'Ireland')]";
-
+        String middleCountryXpath = "//*[contains(@text,'Italy')]";
         actor.attemptsTo(
                 Click.on(BT_MAKE_PAYMENT),
                 Enter.theValue(transactionData.get("phone")).into(ET_PHONE),
@@ -53,16 +51,10 @@ public class PaymentTask implements Task {
                 Check.whether(theCountryIsOnTheList().using(transactionData.get("country")))
                         .andIfSo(
                                 Click.on(BT_SELECT_COUNTRY),
-                                Check.whether(PageElement.located(By.xpath(countryXpath)).isVisibleFor(actor))
+                                Check.whether(PageElement.located(By.xpath(countryXpath)).resolveFor(actor).isPresent())
                                         .andIfSo(Click.on(PageElement.located(By.xpath(countryXpath))))
                                         .otherwise(
-                                                Enter.theValue().into().thenHit(Keys.ARROW_DOWN),
-                                                Enter.theValue().into().thenHit(Keys.ARROW_DOWN),
-                                                Enter.theValue().into().thenHit(Keys.ARROW_DOWN),
-                                                Enter.theValue().into().thenHit(Keys.ARROW_DOWN),
-                                                Enter.theValue().into().thenHit(Keys.ARROW_DOWN),
-                                                Enter.theValue().into().thenHit(Keys.ARROW_DOWN),
-
+                                                swipeToXpath(middleCountryXpath),
                                                 Click.on(PageElement.located(By.xpath(countryXpath)))
                                         )
                         )
@@ -72,6 +64,7 @@ public class PaymentTask implements Task {
                 Click.on(BT_SEND_PAYMENT),
                 Click.on(BT_CONFIRM_PAYMENT)
         );
+
     }
 
     public static PaymentTask makeAPayment() {
