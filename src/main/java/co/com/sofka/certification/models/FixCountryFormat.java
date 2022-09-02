@@ -12,10 +12,9 @@ public class FixCountryFormat {
     public String fixFormat()
     {
         String returnWord;
-        if(country.equals("USA"))
-            returnWord = country;
-        else
-            returnWord = fixAll(country.split("_"));
+        returnWord = fixAll(country.split("_"));
+        if(returnWord.contains("Usa"))
+            returnWord = returnWord.toUpperCase(Locale.ROOT);
         return returnWord;
     }
 

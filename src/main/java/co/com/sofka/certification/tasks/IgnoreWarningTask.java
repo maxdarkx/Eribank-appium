@@ -11,7 +11,7 @@ public class IgnoreWarningTask implements Task {
     @Override
     public <T extends Actor> void performAs(T actor) {
         actor.attemptsTo(
-                Check.whether(BT_DISMISS_WARNING.resolveFor(actor).isPresent())
+                Check.whether(BT_DISMISS_WARNING.isVisibleFor(actor))
                         .andIfSo(Click.on(BT_DISMISS_WARNING))
         );
     }

@@ -21,13 +21,13 @@ import net.serenitybdd.screenplay.conditions.Check;
 import net.serenitybdd.screenplay.ui.PageElement;
 import net.serenitybdd.screenplay.waits.WaitUntil;
 
-
 import org.openqa.selenium.By;
 
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Map;
 
+import co.com.sofka.certification.models.Countries;
 import co.com.sofka.certification.models.FixCountryFormat;
 
 
@@ -41,26 +41,39 @@ public class PaymentTask implements Task {
         actor.remember("paymentAmount", transactionData.get("amount"));
         FixCountryFormat fix = new FixCountryFormat(transactionData.get("country"));
         String country = fix.fixFormat();
-        String countryXpath = "//*[contains(@text,'" + country + "')]";
-        String middleCountryXpath = "//*[contains(@text,'Iceland')]";
+        String countryXpath = "//android.widget.TextView[contains(@text,'" + country + "')]";
+        String middleCountryXpath = "//android.widget.TextView[contains(@text,'India')]";
+
         actor.attemptsTo(
-                Click.on(BT_MAKE_PAYMENT),
+                Click.on(BT_MAKE_PAYMENT)
+        );
+
+        if (Countries.find(transactionData.get("country"))) {
+            actor.attemptsTo(
+                    Click.on(BT_SELECT_COUNTRY)
+            );
+
+            actor.attemptsTo(
+                    Check.whether( PageElement.located(By.xpath(countryXpath)).isVisibleFor(actor))
+                            .andIfSo(Click.on(PageElement.located(By.xpath(countryXpath))))
+                            .otherwise(
+                                    swipeToXpath(middleCountryXpath),
+                                    Click.on(PageElement.located(By.xpath(countryXpath)))
+                            )
+            );
+        }
+
+        else
+        {
+            actor.attemptsTo(
+                    Enter.theValue(country).into(ET_COUNTRY)
+            );
+        }
+
+        actor.attemptsTo(
                 Enter.theValue(transactionData.get("phone")).into(ET_PHONE),
                 Enter.theValue(transactionData.get("name")).into(ET_NAME),
                 Enter.theValue(transactionData.get("amount")).into(SR_AMOUNT),
-                Check.whether(theCountryIsOnTheList().using(transactionData.get("country")))
-                        .andIfSo(
-                                Click.on(BT_SELECT_COUNTRY),
-                                Check.whether(PageElement.located(By.xpath(countryXpath)).resolveFor(actor).isPresent())
-                                        .andIfSo(Click.on(PageElement.located(By.xpath(countryXpath))))
-                                        .otherwise(
-                                                swipeToXpath(middleCountryXpath),
-                                                Click.on(PageElement.located(By.xpath(countryXpath)))
-                                        )
-                        )
-                        .otherwise(
-                                Enter.theValue(country).into(ET_COUNTRY)
-                        ),
                 Click.on(BT_SEND_PAYMENT),
                 Click.on(BT_CONFIRM_PAYMENT)
         );

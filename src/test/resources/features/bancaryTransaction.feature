@@ -18,3 +18,7 @@ Feature: I as an eribank user
       | 8012678945  | Maria De Las Nieves | 20     | CANADA      |
       | 801267945   | Jose De Las Nieves  | 15     | RUSSIA      |
       | 801267945   | Alberto maya        | 20     | COLOMBIA    |
+      | 5012678945  | Jose Cansino        | 50     | ICELAND     |
+      | 501         | Alberto Marino      | 10     | GREECE      |
+      | 501         | Juan Maya           | 10     | JAPAN       |
+      | 801267945   | Alberto maya        | 20     | ITALY      |

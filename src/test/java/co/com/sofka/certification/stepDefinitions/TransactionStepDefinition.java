@@ -6,11 +6,9 @@ import static co.com.sofka.certification.questions.FixedBalanceQuestion.fixedStr
 import static co.com.sofka.certification.tasks.IgnoreWarningTask.ignoreWarning;
 import static co.com.sofka.certification.tasks.LoginTask.doLogin;
 import static co.com.sofka.certification.tasks.PaymentTask.makeAPayment;
-import static co.com.sofka.certification.userinterfaces.DashboardUI.BT_MAKE_PAYMENT;
 import static co.com.sofka.certification.userinterfaces.DashboardUI.VW_BALANCE;
 
 import net.serenitybdd.screenplay.Actor;
-import net.serenitybdd.screenplay.actions.Click;
 import net.serenitybdd.screenplay.actors.OnStage;
 import net.serenitybdd.screenplay.actors.OnlineCast;
 import net.serenitybdd.screenplay.ensure.Ensure;
@@ -20,7 +18,6 @@ import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 
-import co.com.sofka.certification.models.Countries;
 import io.cucumber.java.Before;
 import io.cucumber.java.ParameterType;
 import io.cucumber.java.en.Given;
