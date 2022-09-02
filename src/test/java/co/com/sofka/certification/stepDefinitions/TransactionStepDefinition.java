@@ -53,7 +53,6 @@ public class TransactionStepDefinition {
                 WaitUntil.the(VW_BALANCE, isVisible()).forNoMoreThan(Duration.ofSeconds(10)),
                 makeAPayment().withTransactionData(transactionData)
         );
-
     }
 
     @Then("{actor} should see that the correct amount was sent")

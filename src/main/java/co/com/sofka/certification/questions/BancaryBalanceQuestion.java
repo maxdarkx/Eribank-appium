@@ -1,7 +1,5 @@
 package co.com.sofka.certification.questions;
 
-import static co.com.sofka.certification.userinterfaces.DashboardUI.VW_BALANCE;
-
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Question;
 
@@ -15,12 +13,11 @@ public class BancaryBalanceQuestion implements Question<String> {
         Float actualBalanceNumber = Float.parseFloat(actualBalance[3].replace("$", ""));
         Float paymentAmountNumber = Float.parseFloat(paymentAmount.replace("$", ""));
         Float expectedBalanceNumber = actualBalanceNumber - paymentAmountNumber;
-        String expectedBalance = String.format(Locale.ROOT,"%.2f$",expectedBalanceNumber);
+        String expectedBalance = String.format(Locale.ROOT, "%.2f$", expectedBalanceNumber);
         return expectedBalance;
     }
 
-    public static BancaryBalanceQuestion calculatedBalance()
-    {
+    public static BancaryBalanceQuestion calculatedBalance() {
         return new BancaryBalanceQuestion();
     }
 

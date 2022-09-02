@@ -4,6 +4,7 @@ import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Performable;
 import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.Tasks;
+import net.serenitybdd.screenplay.actions.Click;
 import net.serenitybdd.screenplay.actions.DriverTask;
 import net.serenitybdd.screenplay.ui.PageElement;
 
@@ -13,6 +14,7 @@ import org.openqa.selenium.interactions.touch.TouchActions;
 
 public class SwipeToXpath implements Task {
     private String xpath;
+    private String itemXpath;
 
     public SwipeToXpath(String xpath) {
         this.xpath = xpath;
@@ -21,7 +23,8 @@ public class SwipeToXpath implements Task {
     @Override
     public <T extends Actor> void performAs(T actor) {
         actor.attemptsTo(
-                swipeDown(PageElement.located(By.xpath(xpath)).resolveFor(actor))
+                swipeDown(PageElement.located(By.xpath(xpath)).resolveFor(actor)),
+                Click.on(PageElement.located(By.xpath(itemXpath)))
         );
     }
 
@@ -42,5 +45,11 @@ public class SwipeToXpath implements Task {
                     actions.perform();
                 }
         );
+    }
+
+    public SwipeToXpath lookingFor(String countryXpath)
+    {
+        itemXpath = countryXpath;
+        return this;
     }
 }
