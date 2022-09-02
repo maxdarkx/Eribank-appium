@@ -42,7 +42,7 @@ public class PaymentTask implements Task {
         FixCountryFormat fix = new FixCountryFormat(transactionData.get("country"));
         String country = fix.fixFormat();
         String countryXpath = "//*[contains(@text,'" + country + "')]";
-        String middleCountryXpath = "//*[contains(@text,'Italy')]";
+        String middleCountryXpath = "//*[contains(@text,'Iceland')]";
         actor.attemptsTo(
                 Click.on(BT_MAKE_PAYMENT),
                 Enter.theValue(transactionData.get("phone")).into(ET_PHONE),
